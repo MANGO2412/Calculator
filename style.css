@@ -10,13 +10,40 @@
 }
 
 .cal{
-    width: 200px;
+    width: 50%;
+    height:70vh;
     margin: 10px auto;
     display: flex;
     flex-direction:column;
+    padding: 10px;
+    border: 1px solid black;
 }
 
 .cal__view{
-   border: 1px solid black;
    padding: 40px;
 }
+
+.cal__buttons{
+   display: grid;
+   grid-template-columns: 1fr 100px;
+   column-gap: 10px;
+   border: 1px solid black;
+   height: 100%;
+}
+
+
+.cal__numbers{
+   display: grid;
+   grid-template-columns: repeat(3,1fr);
+   column-gap: 20px;
+   row-gap: 5px;
+}
+
+.cal__operators{
+   display: grid;
+   row-gap: 10px;
+}
+
+
+
+
