@@ -1,12 +1,13 @@
 //here, all functions are defined 
+
 /**this function is to show all numbers and all math operators  */
 function display(e){
     const {textContent}=e.target;
 
-    if(textContent=="+" || textContent=="-"|| textContent=="x" || textContent=="/"){
-        view.textContent+=","+textContent+",";
+    if( ( (textContent=="+" || textContent=="x" || textContent=="/") && view.textContent.length > 0) ||  textContent=="-"){
+        view.innerHTML+=`<span class="unable">,</span>`+textContent+`<span class="unable">,</span>`;
     }else{
-        view.textContent+=textContent;
+        view.innerHTML+=textContent;
         
         if(view.textContent.split(",").includes("+",) ||view.textContent.split(",").includes("-")  || view.textContent.split(",").includes("/")  ||view.textContent.split(",").includes("x")   ){
           viewResult.textContent=math(view.textContent.split(","));
@@ -15,18 +16,34 @@ function display(e){
     }
 
 }
+
 /**this function is used to clear the view  when the  user make a mistake*/
 function clear(e){
     const {textContent}=e.target;
     if(textContent==='C')
-        view.textContent=''
+        view.innerHTML=''
     else{
-      let arr= view.textContent.split("");
+      let arr= view.innerHTML.split(`<span class="unable">,</span>`).join('').split('');
       arr.pop();
-      view.textContent=arr.join("")
+
+      if(arr.includes('+') || arr.includes('-') || arr.includes('x') || arr.includes('/')  ){
+        view.innerHTML=""
+        for(let i=0;i<arr.length; i++){
+           if(Number(arr[i]))
+              view.innerHTML+=arr[i]
+           else
+             view.innerHTML+=`<span class="unable">,</span>`+arr[i]+`<span class="unable">,</span>`;
+        }
+
+        viewResult.textContent=math(view.textContent.split(","));
+        
+      }else{
+        view.innerHTML=arr.join(``)
+      }
     }          
 }
 
+/** This function is  used to do the math operations */
 function mathOperators(numA,op,numB){
      let result=0;
      numA=Number(numA);
@@ -50,6 +67,7 @@ function mathOperators(numA,op,numB){
      return result
 }
 
+/** This function is used to take the array values and get two numers and the operator to do the math operation*/
 function math(numberValues){
    let arrayValues=numberValues, result=null;
    while(!(result  != null)){
@@ -86,11 +104,11 @@ const viewResult=document.querySelector(".cal__viewResult")
 const clearOne=document.getElementById("clearOne");//this variable is used to get the btn AC
 const clearAll=document.getElementById("clearAll");//this varaible is used to get the btn C
 const igual=document.getElementById("igual");
-const btnNumbers=document.querySelectorAll(".cal__number");//this variable are number buttons to press the number will be pressed to do the math operation
+const btnNumbers=document.querySelectorAll(".cal__btn--show");//this variable are number buttons to press the number will be pressed to do the math operation
 
 
 //here is  the calculator's logic
 btnNumbers.forEach(elem=>elem.addEventListener('click',display))
 
-clearOne.addEventListener("click",clear);
-clearAll.addEventListener("click",clear);
+clearOne.addEventListener("click",clear);//here the event click  is assign to variable Clearone when the user click the button of the variable clearone, it will be executed the fn clear
+clearAll.addEventListener("click",clear);//here the event is assign to variable clearAll when the user click the button of the variable clearone, it will be executed the fn clear
