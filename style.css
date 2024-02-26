@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 *{
   padding: 0;
   margin: 0;
@@ -24,9 +26,11 @@
 }
 
 .cal__view{
-   padding: 40px;
+   padding: 20px;
    color: #E7F6F2;
+   font-size: 30px;
 }
+
 
 
 .cal__buttons{
@@ -71,3 +75,29 @@
    color: #2C3333;
 }
 
+
+
+.footer{
+   padding: 20px;
+   display: flex;
+   justify-content: flex-end;
+}
+
+.versionApp{
+   font-size: 24px;
+   font-family: "Roboto", sans-serif;
+   font-weight: 100;
+   font-style: normal;
+}
+
+/* media query to smartphone */
+@media (min-width:610px)  and (max-width:950px){
+    .cal{
+       width: 60%;
+    }
+}
+@media (min-width:300px) and (max-width:600px){
+     .cal{
+       width: 100%;
+     }
+}

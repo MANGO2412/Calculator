@@ -6,7 +6,7 @@ function display(e){
 
     if( ( (textContent=="+" || textContent=="x" || textContent=="/") && view.textContent.length > 0) ||  textContent=="-"){
         view.innerHTML+=`<span class="unable">,</span>`+textContent+`<span class="unable">,</span>`;
-    }else{
+    }else if(Number(textContent) || textContent === '0'){
         view.innerHTML+=textContent;
         
         if(view.textContent.split(",").includes("+",) ||view.textContent.split(",").includes("-")  || view.textContent.split(",").includes("/")  ||view.textContent.split(",").includes("x")   ){
@@ -20,9 +20,10 @@ function display(e){
 /**this function is used to clear the view  when the  user make a mistake*/
 function clear(e){
     const {textContent}=e.target;
-    if(textContent==='C')
-        view.innerHTML=''
-    else{
+    if(textContent==='C'){
+        view.innerHTML='';
+        viewResult.innerHTML="";
+    }else{
       let arr= view.innerHTML.split(`<span class="unable">,</span>`).join('').split('');
       arr.pop();
 
@@ -42,6 +43,13 @@ function clear(e){
       }
     }          
 }
+
+
+function showAll(){
+    view.innerHTML=viewResult.innerHTML;
+    viewResult.innerHTML="";
+}
+
 
 /** This function is  used to do the math operations */
 function mathOperators(numA,op,numB){
@@ -103,12 +111,13 @@ const view=document.querySelector(".cal__viewOperation")//this variable is used 
 const viewResult=document.querySelector(".cal__viewResult")
 const clearOne=document.getElementById("clearOne");//this variable is used to get the btn AC
 const clearAll=document.getElementById("clearAll");//this varaible is used to get the btn C
-const igual=document.getElementById("igual");
+const finalResult=document.getElementById("finalShow");
 const btnNumbers=document.querySelectorAll(".cal__btn--show");//this variable are number buttons to press the number will be pressed to do the math operation
 
 
 //here is  the calculator's logic
 btnNumbers.forEach(elem=>elem.addEventListener('click',display))
 
+finalResult.addEventListener("click",showAll)
 clearOne.addEventListener("click",clear);//here the event click  is assign to variable Clearone when the user click the button of the variable clearone, it will be executed the fn clear
 clearAll.addEventListener("click",clear);//here the event is assign to variable clearAll when the user click the button of the variable clearone, it will be executed the fn clear
